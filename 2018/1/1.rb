@@ -3,7 +3,7 @@ puts File.open('./input', 'r').map(&:to_i).reduce(:+)
 
 # 2
 current_frequency = 0
-frequencies_reached = Hash.new(0)
+frequencies_reached = Hash.new(0) # or frequencies_seen = Set.new()
 
 loop do
   File.foreach('./input') do |line|
