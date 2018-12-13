@@ -8,9 +8,9 @@ const part1 = textInput => {
 
   const coords = {};
   for (let i = 0; i < claims.length; i += 1) {
-    const square = claims[i];
+    const claim = claims[i];
     const regexp = /^#\d+\s@\s(\d+),(\d+):\s(\d+)x(\d+)$/;
-    const matches = square.match(regexp);
+    const matches = claim.match(regexp);
     const [y, x, width, height] = matches.slice(1).map(val => parseInt(val));
 
     for (let i = x + 1; i <= x + height; i += 1) {
@@ -34,9 +34,9 @@ const part2 = textInput => {
 
   const coords = {};
   for (let i = 0; i < claims.length; i += 1) {
-    const square = claims[i];
+    const claim = claims[i];
     const regexp = /^#(\d+)\s@\s(\d+),(\d+):\s(\d+)x(\d+)$/;
-    const matches = square.match(regexp);
+    const matches = claim.match(regexp);
     const [id, y, x, width, height] = matches
       .slice(1)
       .map(val => parseInt(val));
@@ -52,6 +52,7 @@ const part2 = textInput => {
     }
   }
 
+  // it'd probably be faster to use sets or partition the coords values array
   const flatOverlaps = flatten(
     Object.values(coords).filter(occupants => occupants.length >= 2)
   );
