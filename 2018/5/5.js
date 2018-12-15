@@ -69,7 +69,6 @@ const subtractMonomer = (polymer, monomer) => {
   return newPolymer.join('');
 };
 
-// TODO: regex magic?
 const scanPolymerPart2 = polymer => {
   const lengths = [];
   for (let i = 0; i < alphabet.length; i += 1) {
