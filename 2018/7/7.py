@@ -97,6 +97,11 @@ class Worker(object):
         self.current_step = None
         self.current_step_end_time = -1
 
+    def begin_step(self, current_step: Node, end_time: int) -> None:
+        self.idle = False
+        self.current_step = current_step
+        self.current_step_end_time = end_time
+
     def finish_step(self):
         self.current_step.ordered = True
 
@@ -128,15 +133,13 @@ def part2(steps, workers=2, extra_time=0):
         for i, node in enumerate(chain):
             if node.ready:
                 for worker in workers:
-                    if chain and worker.idle:
+                    if worker.idle:
                         current_node = chain.pop(i)
                         new_children += current_node.children
 
-                        # Found a worker for this step, start step
-                        worker.idle = False
-                        worker.current_step = current_node
-                        worker.current_step_end_time = (
-                            time + steps_to_time[current_node.step])
+                        current_step = current_node
+                        end_time = time + steps_to_time[current_node.step]
+                        worker.begin_step(current_step, end_time)
                         break
 
         chain = list(set(new_children).union(set(chain)))
@@ -152,8 +155,9 @@ def main(filename):
         steps = file_input.read().splitlines()
 
     part1_solution = part1(steps)
-    part2_solution = part2(steps, 2, 0)
-    # part2_solution = part2(steps, 5, 60) # Non-sample input
+    # part2_solution = part2(steps, 2, 0)  # sample
+    part2_solution = part2(steps, 5, 60)
+    print(part1_solution, part2_solution)
 
     Solution = namedtuple('Solution', 'part1, part2')
     return Solution(part1=part1_solution, part2=part2_solution)
