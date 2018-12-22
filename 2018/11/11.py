@@ -40,8 +40,6 @@ def sum_square(grid, col, row, size):
 
 
 def square_power(grid, size):
-    print(size)
-
     largest_power = float('-inf')
     largest_power_coordinates = []
 
