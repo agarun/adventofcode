@@ -33,16 +33,12 @@ class Cart:
         if current_turn == 'LEFT':
             next_direction_idx = (
                 CART_TURNS_LEFT.index(self.direction) + 1) % 4
-            if next_direction_idx == -1:
-                raise SystemExit
             self.direction = CART_TURNS_LEFT[next_direction_idx]
         elif current_turn == 'STRAIGHT':
             pass
         elif current_turn == 'RIGHT':
             next_direction_idx = (
                 CART_TURNS_RIGHT.index(self.direction) + 1) % 4
-            if next_direction_idx == -1:
-                raise SystemExit
             self.direction = CART_TURNS_RIGHT[next_direction_idx]
 
 
@@ -154,6 +150,7 @@ def main(file_input):
         # of each other in case they both moved during the tick (still crashed!)
 
         ticks += 1
+        # print(ticks)
         # print_grid(carts, grid)
 
     part1 = crashes[0]
